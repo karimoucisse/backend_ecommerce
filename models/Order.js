@@ -10,7 +10,7 @@ const OrderSchema = Schema(
             type : Schema.Types.ObjectId, ref: "User"
         },
         lineItems : [{
-            type : Schema.Types.ObjectId, ref: "lineItems"
+            type : Schema.Types.ObjectId, ref: "LineItem"
         }],
         invoice: {
             type : Schema.Types.ObjectId, ref: "Invoice"
@@ -29,7 +29,7 @@ OrderSchema.post('save', async function(order){
 
 OrderSchema.post('save', async function(order){
     await model('Invoice').findByIdAndUpdate(
-        {_id : order.user},
+        {_id : order.invoice},
         {invoice: order._id}
     )
 })
