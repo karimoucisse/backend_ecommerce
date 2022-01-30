@@ -10,9 +10,9 @@ const UserSchema = Schema({
     password : { type : String, required : true, minlength: 6 },
     phoneNumber : { type : String },
     adress : { type : String, required : true}, 
-    // orders : [{ type : Schema.Types.ObjectId, ref : Order }],
-    // cart : { type : Schema.Types.ObjectId, ref : Cart }, 
-    // paymentMethods : [{ type : Schema.Types.ObjectId, ref : PaymentMethod}],
+    orders : [{ type : Schema.Types.ObjectId, ref : "Order" }],
+    cart : { type : Schema.Types.ObjectId, ref : "Cart" }, 
+    paymentMethods : [{ type : Schema.Types.ObjectId, ref : "PaymentMethod"}],
 }, {
     timestamps : true
 })
