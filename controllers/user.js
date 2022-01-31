@@ -1,5 +1,5 @@
 const Users = require('../models/User')
-
+// middlewar qui renvoie tous les user de la base de donée
 exports.getUsers =  async (req, res, next) => {
     try {
         const users = await Users.find()
@@ -11,7 +11,7 @@ exports.getUsers =  async (req, res, next) => {
         res.status(500).json({error: err})
     }
 }
-
+// renvoie un seul user par rapport a l'id
 exports.getOneUser =  async (req, res, next) =>{
     const {id} = req.params
     try {
@@ -22,7 +22,7 @@ exports.getOneUser =  async (req, res, next) =>{
         res.status(500).json({error: err})
     }
 }
-
+// permet de modifier l'utilisateur
 exports.modifyUser =  async (req, res) => {
     const {id} = req.params
     try {

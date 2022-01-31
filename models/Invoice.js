@@ -19,6 +19,7 @@ InvoiceSchema.post('save', async function(invoice){
     )
 })
 
+
 const Invoice = model('Invoice', InvoiceSchema)
 
 module.exports = Invoice
