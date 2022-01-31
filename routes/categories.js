@@ -1,30 +1,11 @@
 const express = require("express")
 const app = express()
 
-const Category = require("../models/Category")
+const categoryCtrl = require("../controllers/categories")
 
-app.get("/", async (req, res) => {
-    try {
-        const category = await Category.find()
-        .exec()
-        res.json(category)
-    } catch (err) {
-        res.status(500).json({error: err})
-    }
-})
 
-app.post("/", async (req, res) => {
-    const category = await new Category({
-        ...req.body
-    })
+app.get("/", categoryCtrl.getCategory)
 
-    category.save( (err, category) => {
-        if (err) {
-            res.status(500).json({error: err})
-            return
-        }
-        res.json(category)
-    })
-})
+app.post("/", categoryCtrl.createCategory)
 
 module.exports = app
