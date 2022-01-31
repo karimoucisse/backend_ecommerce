@@ -10,7 +10,7 @@ const session = require("express-session")
 
 
 const authRoutes = require("./routes/auth")
-// const categoriesRoutes = require("./routes/categories")
+const categoriesRoutes = require("./routes/categories")
 const productsRoutes = require("./routes/products")
 // const lineItemsRoutes = require("./routes/lineItems")
 // const cartsRoutes = require("./routes/carts")
@@ -42,7 +42,7 @@ app.use(session({
 // app.use(passport.session())
 
 app.use('/auth', authRoutes)
-// app.use('/categories', categoriesRoutes)
+app.use('/categories', categoriesRoutes)
 app.use('/products', productsRoutes)
 // app.use('/lineItems', lineItemsRoutes)
 // app.use('/carts', cartsRoutes)

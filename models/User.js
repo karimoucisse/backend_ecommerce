@@ -11,7 +11,7 @@ const UserSchema = Schema({
     phoneNumber : { type : String },
     adress : { type : String, required : true}, 
     orders : [{ type : Schema.Types.ObjectId, ref : "Order" }],
-    cart : { type : Schema.Types.ObjectId, ref : "Cart" }, 
+    cart : { type : Schema.Types.ObjectId, ref : "Cart", default: null }, 
     paymentMethods : [{ type : Schema.Types.ObjectId, ref : "PaymentMethod"}],
 }, {
     timestamps : true

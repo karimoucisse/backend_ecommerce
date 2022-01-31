@@ -21,18 +21,12 @@ const OrderSchema = Schema(
 )
 
 OrderSchema.post('save', async function(order){
-    await model('User').findByIdAndUpdate(
+    await model('User').findOneAndUpdate(
         {_id : order.user},
         {$push : {orders: order._id}}
     )
 })
 
-OrderSchema.post('save', async function(order){
-    await model('Invoice').findByIdAndUpdate(
-        {_id : order.invoice},
-        {invoice: order._id}
-    )
-})
 
 const Order = model("Order", OrderSchema)
 module.exports = Order

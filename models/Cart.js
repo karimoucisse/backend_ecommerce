@@ -14,27 +14,22 @@ const CartSchema = Schema(
 )
 
 CartSchema.post('save', async function(cart){
-    await model('User').findByIdAndUpdate(
+    await model('User').findOneAndUpdate(
         {_id : cart.user},
         {cart: cart._id}
     )
-})
-
-CartSchema.post('save', async function(cart){
-    await model('LineItem').findByIdAndUpdate(
+    await model('LineItem').findOneAndUpdate(
         {_id : cart.lineItems},
         {cart: cart._id}
     )
 })
+
 
 CartSchema.post('findOneAndDelete', async function(cart){
     await model('User').findOneAndUpdate(
         {_id : cart.user},
         {cart: null}
     )
-})
-
-CartSchema.post('findOneAndDelete', async function(cart){
     await model('LineItem').findOneAndUpdate(
         {_id : cart.lineItems},
         {cart: null}

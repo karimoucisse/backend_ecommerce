@@ -20,7 +20,7 @@ const ProductSchema = Schema(
       },
       available : {
           type: Boolean,
-          required: true
+          default: false
       },
       categories : [{
         type: Schema.Types.ObjectId, ref: "Category"
