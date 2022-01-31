@@ -6,15 +6,15 @@ const PaymentMethodSchema = Schema(
             type : String,
             required : true
         },
-        name : {
-            type : String,
-            required : true
+        name: {
+            type: String,
+            required: true
         },
         user: {
-            type : Schema.Types.ObjectId, ref: "User"
+            type: Schema.Types.ObjectId, ref: "User"
         },
-        invoices : [{
-            type : Schema.Types.ObjectId, ref: "Invoice"
+        invoices: [{
+            type: Schema.Types.ObjectId, ref: "Invoice"
         }]
     }, {
         timestamps: true
@@ -23,31 +23,21 @@ const PaymentMethodSchema = Schema(
 
 PaymentMethodSchema.post('save', async function(paymentMethod){
     await model('User').findOneAndUpdate(
-        {_id : paymentMethod.user},
-        {$push : {paymentMethod: paymentMethod._id}}
-    )
-})
-
-PaymentMethodSchema.post('save', async function(paymentMethod){
-    await model('Invoice').findByIdAndUpdate(
-        {$in : {_id : paymentMethod.invoices}},
-        {paymentMethod: paymentMethod._id}
+        {_id: paymentMethod.user},
+        {$push: {paymentMethods: paymentMethod._id}}
     )
 })
 
 PaymentMethodSchema.post('findOneAndDelete', async function(paymentMethod){
     await model('User').findOneAndUpdate(
-        {_id : paymentMethod.user},
-        {$pull : {paymentMethod: paymentMethod._id}}
+        {_id: paymentMethod.user},
+        {$pull: {paymentMethods: paymentMethod._id}}
     )
-})
-
-PaymentMethodSchema.post('findOneAndDelete', async function(paymentMethod){
-    await model('Invoice').findOneAndUpdate(
-        {$in : {_id : paymentMethod.invoices}},
+    await model('Invoice').updateMany(
+        {_id: {$in : paymentMethod.invoices}},
         {paymentMethod: null}
     )
 })
-
+    
 const PaymentMethod = model("PaymentMethod", PaymentMethodSchema)
 module.exports = PaymentMethod

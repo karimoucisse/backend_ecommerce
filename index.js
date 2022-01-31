@@ -10,7 +10,7 @@ const session = require("express-session")
 
 
 const authRoutes = require("./routes/auth")
-// const categoriesRoutes = require("./routes/categories")
+const categoriesRoutes = require("./routes/categories")
 // const productsRoutes = require("./routes/products")
 // const lineItemsRoutes = require("./routes/lineItems")
 // const cartsRoutes = require("./routes/carts")
@@ -22,7 +22,7 @@ const usersRoutes = require("./routes/users")
 
 mongoose.connect(process.env.DB_URL)
 const db = mongoose.connection
-db.on("erro", err => console.log(err))
+db.on("error", err => console.log(err))
 db.once("open", () => console.log("Connected to db"))
 
 app.use(express.json())
@@ -42,7 +42,7 @@ app.use(session({
 // app.use(passport.session())
 
 app.use('/auth', authRoutes)
-// app.use('/categories', categoriesRoutes)
+app.use('/categories', categoriesRoutes)
 // app.use('/products', productsRoutes)
 // app.use('/lineItems', lineItemsRoutes)
 // app.use('/carts', cartsRoutes)
