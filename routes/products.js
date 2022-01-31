@@ -1,35 +1,16 @@
 const express = require('express')
 const app = express()
-const Products = require('../models/Product')
+const productsCtrl = require('../controllers/products')
 
-// route pour voir tout les produit
-app.get('/', async (req, res) => {
-    try {
-        const products = await Products.find().exec()
-        res.json(products)
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({error : err})
-    }
-})
+// route pour voir tout les produit (user et admin)
+app.get('/', productsCtrl.getProducts)
+// route qui renvoi un seul produit avec l'id (user)
+app.get('/:id',productsCtrl.getOneProduct)
 
-// route qui crée un produit (mais me renvoie une erreur voir avec benoit =))
-app.post('/', async (req, res) => {
-    try {
-        const product = new Products({
-            ...req.body
-        })
-        product.save( async (err, product) => {
-            if (product) {
-                res.json(product)
-                return
-            }
-            console.log(err)
-            res.status(500).json({ error: err })
-        })
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({ error: err })
-    }
-})
+// route qui crée un produit (pour l'admin)
+app.post('/',productsCtrl.createProductAdmin)
+//route pour modifier les information de un seul produit(prix, description, etc..)(admin)
+app.put("/:id",productsCtrl.modifyOneProduitAdmin)
+
+
 module.exports = app
