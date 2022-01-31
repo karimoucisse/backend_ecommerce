@@ -1,25 +1,24 @@
 const { Schema, model } = require("mongoose")
 
 const InvoiceSchema = Schema({
-    paymentMethod : {type : Schema.Types.ObjectId, ref : PaymentMethod._id },
-    cardNumber : { type : string },
-    order : { type : Schema.Types.ObjectId, ref : Order },
+    paymentMethod : {type: Schema.Types.ObjectId, ref : "PaymentMethod" },
+    cardNumber : { type: String },
+    order : { type: Schema.Types.ObjectId, ref: "Order" },
 },{
     timestamps : true
 })
+
 InvoiceSchema.post('save', async function(invoice){
-    await model('Order').findByIdAndUpdate(
-        {order : Order._id},
+    await model('Order').findOneAndUpdate(
+        {_id : invoice.order},
         {invoice: invoice._id}
+    )
+    await model('PaymentMethod').findOneAndUpdate(
+        {_id: invoice.paymentMethod},
+        {$push: {invoices: Invoice._id}}
     )
 })
 
-InvoiceSchema.post('save', async function(invoice){
-    await model('PaymentMethod').findByIdAndUpdate(
-        {paymentMethod : PaymentMethod._id},
-        {invoices: Invoice._id}
-    )
-})
 
 const Invoice = model('Invoice', InvoiceSchema)
 

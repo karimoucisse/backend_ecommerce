@@ -2,7 +2,7 @@ const {Schema, model} = require("mongoose")
 
 const OrderSchema = Schema(
     {
-        date_cmd: {
+        deliveryDate: {
             type: Date,
             required: true
         },

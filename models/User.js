@@ -5,7 +5,7 @@ const UserSchema = Schema({
     role : { type : String },
     firstName :{ type : String , required : true},
     name : { type : String , required : true },
-    birthDate: { type : String },
+    birthDate: { type : Date },
     email : { type : String, required : true},
     password : { type : String, required : true, minlength: 6 },
     phoneNumber : { type : String },
