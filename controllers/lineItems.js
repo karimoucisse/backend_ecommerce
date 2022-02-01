@@ -2,6 +2,7 @@ const LineItem = require("../models/LineItem")
 
 exports.getLineItems = async(req, res) => {
     const lineItems = await LineItem.find()
+    .exec()
     res.json(lineItems)
 }
 

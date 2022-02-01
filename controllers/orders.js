@@ -18,11 +18,23 @@ exports.createOrder = async(req, res) => {
 
 exports.getOrders = async(req, res) => {
     const order = await Order.find()
+    .populate({
+        path: 'user',
+        select : 'name phoneNumber adress'
+    
+    })
+    .exec()
     res.json(order)
 }
 
 exports.getOrderId =  async(req, res) => {
     const { id } = req.params
     const order = await Order.find({id})
+    .populate({
+        path: 'user',
+        select : 'name phoneNumber adress'
+    
+    })
+    .exec()
     res.json(order)
 }

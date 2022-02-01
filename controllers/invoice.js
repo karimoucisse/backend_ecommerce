@@ -4,6 +4,15 @@ const Invoice = require('../models/Invoice')
 exports.getAllInvoice = async (req, res) => {
     try {
         const invoice = await Invoice.find()
+        .populate({
+            path: 'paymentMethod',
+            select: 'cardNumber name'
+        })
+        .populate({
+            path: 'order',
+            select: 'deliveryDate createdAt lineItems',
+        })
+        .exec()
         res.json(invoice);
     } catch(err) {
         console.log(err)

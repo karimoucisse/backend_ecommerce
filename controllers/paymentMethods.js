@@ -2,6 +2,11 @@ const PaymentMethod = require("../models/PaymentMethod")
 
 exports.getPaymentMethods =  async(req, res) => {
     const paymentMethods = await PaymentMethod.find()
+    .populate({
+        path: 'user',
+        select: 'name phoneNumber adress'
+    })
+    .exec()
     res.json(paymentMethods)
 }
 
@@ -9,6 +14,11 @@ exports.getPaymentMethod = async(req, res) => {
     const { id } = req.params
 
     const paymentMethod = await PaymentMethod.find({id})
+    .populate({
+        path: 'user',
+        select: 'name phoneNumber adress'
+    })
+    .exec()
     res.json(paymentMethod)
 }
 

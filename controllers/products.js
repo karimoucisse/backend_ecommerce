@@ -2,7 +2,12 @@ const Products = require('../models/Product')
 // middlewar qui renvoie tous les produits (user et admin)
 exports.getProducts =  async (req, res) => {
     try {
-        const products = await Products.find().exec()
+        const products = await Products.find()
+        .populate({
+            path: 'categories',
+            select: 'name'
+        })
+        .exec()
         res.json(products)
     } catch (err) {
         console.log(err)
@@ -14,6 +19,11 @@ exports.getOneProduct =  async (req, res) => {
     const {id} = req.params
     try {
         const oneProduct = await Products.findById(id)
+        .populate({
+            path: 'categories',
+            select: 'name'
+        })
+        .exec()
         res.json(oneProduct)
     } catch (err) {
         console.log(err)

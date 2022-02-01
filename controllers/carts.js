@@ -3,6 +3,10 @@ const Cart = require("../models/Cart")
 exports.getCart = async (req, res) => {
     try {
         const cart = await Cart.find()
+        .populate({
+            path: 'lineItems',
+            select: 'product quantity totalPrice weight'
+        })
         .exec()
         res.json(cart)
     } catch (err) {
@@ -10,7 +14,7 @@ exports.getCart = async (req, res) => {
     }
 }
 
-exports.deletCart = async (req, res) => {
+exports.deleteCart = async (req, res) => {
     try {
         await Cart.findOneAndDelete()
         res.json({ success: "Cart deleted"})

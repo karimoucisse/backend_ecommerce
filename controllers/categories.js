@@ -17,6 +17,10 @@ exports.createCategory = async (req, res) => {
 exports.getCategory = async (req, res) => {
     try {
         const category = await Category.find()
+        .populate({
+            path: 'products',
+            select: 'name image description kiloPrice'
+        })
         .exec()
         res.json(category)
     } catch (err) {

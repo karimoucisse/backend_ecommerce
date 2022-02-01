@@ -3,7 +3,14 @@ const Users = require('../models/User')
 exports.getUsers =  async (req, res, next) => {
     try {
         const users = await Users.find()
-        // .populate()
+        .populate({
+            path: 'orders',
+            select : 'lineItems invoice'
+        })
+        .populate({
+            path: 'paymentMethods',
+            select: 'cardNumber name',
+        })
         .exec()
         res.json(users)
     } catch (err) {

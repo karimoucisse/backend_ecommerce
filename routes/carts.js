@@ -5,6 +5,6 @@ const cartCtrl = require("../controllers/carts")
 
 app.get("/", cartCtrl.getCart)
 
-app.delete("/", cartCtrl.deletCart)
+app.delete("/", cartCtrl.deleteCart)
 
 module.exports = app
