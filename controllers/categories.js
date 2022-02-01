@@ -1,5 +1,6 @@
 const Category = require("../models/Category")
 
+// pour admin
 exports.createCategory = async (req, res) => {
     const category = await new Category({
         ...req.body

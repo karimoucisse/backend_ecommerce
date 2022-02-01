@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const port = process.env.PORT
 const mongoose = require("mongoose")
-// const passport = require("./config/passport")
+const passport = require("./config/passport")
 const cors = require("cors")
 const session = require("express-session")
 
@@ -45,8 +45,8 @@ app.use(session({
   saveUninitialized: false
 }))
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/auth', authRoutes)
 app.use('/categories', categoriesRoutes)

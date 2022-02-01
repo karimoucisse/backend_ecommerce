@@ -9,11 +9,19 @@ passport.use(new LocalStrategy({
 },
     async (username, password, done) => {
     console.log("je suis dans ma strategy local");
-    console.log(username);
-    console.log(password);
+    console.log(username)
+    console.log(password)
     // on cherche l'utilisateur 
     const user = await Users.findOne({ email: username, password: password })
-        .populate({ path: 'orders'})
+    .populate({ 
+        path: 'orders',
+        select: 'lineItems',
+        // populate: {
+            //     path: 'lineItems',
+            //     select: 'quantity'
+            // }
+            
+        })
         // .populate({ path: 'cart'})
         // .populate({ path: 'paymentMethods'})
         .lean()
