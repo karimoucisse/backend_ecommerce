@@ -21,7 +21,10 @@ exports.getOrders = async(req, res) => {
     .populate({
         path: 'user',
         select : 'name phoneNumber adress'
-    
+    })
+    .populate({
+        path: 'lineItems',
+        model: 'LineItem'
     })
     .exec()
     res.json(order)
