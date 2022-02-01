@@ -1,6 +1,7 @@
 const passport = require("passport")
 const passportLocal = require("passport-local")
-let Users = require('../models/User')
+let User = require('../models/User')
+const bcrypt = require('bcrypt')
 const LocalStrategy = passportLocal.Strategy
 
 passport.use(new LocalStrategy({
@@ -12,22 +13,16 @@ passport.use(new LocalStrategy({
     console.log(username)
     console.log(password)
     // on cherche l'utilisateur 
-    const user = await Users.findOne({ email: username, password: password })
-    .populate({ 
-        path: 'orders',
-        select: 'lineItems',
-        // populate: {
-            //     path: 'lineItems',
-            //     select: 'quantity'
-            // }
-            
-        })
-        // .populate({ path: 'cart'})
-        // .populate({ path: 'paymentMethods'})
+    const user = await User.findOne({ email: username})
         .lean()
         .exec()
     // si je ne trouve pas d'utilisateur me renvoi pas autoriser sur postman
     if (!user) {
+        return done(null, false)
+    }
+    const passwordValid = await bcrypt.compare(password, user.password)
+    // si le password n'est pas valide, on renvoie une erreur
+    if (!passwordValid) {
         return done(null, false)
     }
     // si il le trouve il met l'utilisateur dans req.user
@@ -40,7 +35,7 @@ passport.serializeUser((user, done) => {
 })
 // permet de savoir si c'est le bonne utilisateur grace a l'id
 passport.deserializeUser(async (id, done) => {
-    const user = await Users.findOne({ _id: id})
+    const user = await User.findOne({ _id: id})
         // .populate({ path: 'orders'})
         // .populate({ path: 'following'})
         // .populate({ path: 'tweets'})

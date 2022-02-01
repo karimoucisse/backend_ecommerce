@@ -7,19 +7,7 @@ const {sameNameAndEmail} = require('../middlewares/verifyEmail')
 app.post ('/signup',sameNameAndEmail, authCtrl.signup)
 
 // route qui permet de se connecter 
-app.post('/login', passport.authenticate("local"), (req, res) => {
-console.log("la reponse de la route login")
-console.log("le req.user quon recup dans la route login",req.user);
-    if (req.user) {
-        req.logIn(req.user, err =>{
-            if(err) {
-                console.log(err)
-            } else {
-                res.json(req.user)
-            }
-        })
-    }
-})
+app.post('/login', passport.authenticate("local"), authCtrl.loginUser)
 
 
 module.exports = app

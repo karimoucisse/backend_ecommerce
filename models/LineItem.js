@@ -11,6 +11,6 @@ const LineItemSchema = Schema({
     timestamps : true
 })
 
-const lineItem = model('lineItem', LineItemSchema)
+const LineItem = model('LineItem', LineItemSchema)
 
-module.exports = lineItem
+module.exports = LineItem
