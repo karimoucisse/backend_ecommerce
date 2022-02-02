@@ -22,7 +22,7 @@ const ProductSchema = Schema(
           type: Number,
           required: true
       },
-      netPrice: {
+      netWeight: {
           type: Number,
           required: true
       },
