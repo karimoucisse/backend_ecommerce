@@ -40,7 +40,7 @@ exports.loginUser =  (req, res) => {
                             select: 'lineItems',
                             populate: {
                                 path: 'lineItems',
-                                select: 'quantity'
+                                select: 'product quantity weight totalPrice'
                             }
                                 
                         })

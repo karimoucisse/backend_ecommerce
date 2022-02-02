@@ -10,13 +10,29 @@ const ProductSchema = Schema(
           type: String,
           required: true
       },
-      description : {
+      characteristic : {
           type: String,
           required: true
       },
       kiloPrice : {
-          type : Number,
-          required : true
+          type: Number,
+          required: true
+      },
+      pricePerPiece : {
+          type: Number,
+          required: true
+      },
+      netPrice: {
+          type: Number,
+          required: true
+      },
+      fishingArea : {
+        type: String,
+        required: true
+      },
+      conditioning: {
+          type: String,
+          required: true
       },
       available : {
           type: Boolean,

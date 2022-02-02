@@ -11,6 +11,10 @@ exports.getAllInvoice = async (req, res) => {
         .populate({
             path: 'order',
             select: 'deliveryDate createdAt lineItems',
+            populate: {
+                path : 'lineItems',
+                select: 'product quantity weight totalPrice'
+            }
         })
         .exec()
         res.json(invoice);
