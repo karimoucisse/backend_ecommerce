@@ -2,6 +2,10 @@ const LineItem = require("../models/LineItem")
 
 exports.getLineItems = async(req, res) => {
     const lineItems = await LineItem.find()
+    .populate ({
+        path: 'product',
+        select: 'name image price'
+    })
     .exec()
     res.json(lineItems)
 }
