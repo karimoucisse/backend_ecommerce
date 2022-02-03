@@ -5,7 +5,12 @@ exports.getCart = async (req, res) => {
         const cart = await Cart.find()
         .populate({
             path: 'lineItems',
-            select: 'product quantity totalPrice weight'
+            select: 'product quantity totalPrice weight',
+            populate : {
+                path: 'product',
+                select: 'kiloPrice pricePerPiece netWeight conditioning fishingArea'
+            }
+
         })
         .exec()
         res.json(cart)
