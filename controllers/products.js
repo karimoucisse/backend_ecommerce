@@ -1,15 +1,37 @@
 const Products = require('../models/Product')
 // middlewar qui renvoie tous les produits (user et admin)
 exports.getProducts =  async (req, res) => {
+    const {sort, filter, categories} = req.query
+    console.log(req.query)
+    let findParams = {}
+    
+    if (filter) {
+        findParams = {
+            ...findParams,
+            name : {$regex : filter, $options: "i"}
+        }
+    }
+
+    if (categories) {
+        findParams = {
+            ...findParams,
+            categories : { $in : categories.split(",") }
+        }
+    }
+
+   
+
+    // if (category) {categories : {$regex}}
     try {
-        const products = await Products.find()
-        .populate({
-            path: 'categories',
-            select: 'name'
-        })
-        .exec()
-        res.json(products)
-    } catch (err) {
+            const products = await Products.find(findParams)
+            .sort({kiloPrice : sort})
+            .populate({
+                path: 'categories',
+                select: 'name'
+            })
+            .exec()
+            res.json(products) 
+        } catch (err) {
         console.log(err)
         res.status(500).json({error : err})
     }
