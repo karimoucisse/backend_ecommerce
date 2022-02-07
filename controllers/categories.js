@@ -28,3 +28,20 @@ exports.getCategory = async (req, res) => {
         res.status(500).json({error: err})
     }
 }
+
+exports.getOneCategory =  async (req, res) => {
+    const {id} = req.params
+    try {
+        const oneCategory = await Category.findById(id)
+        .populate({
+            path: 'products',
+            select: 'name image kiloPrice pricePerPiece'
+        })
+        .exec()
+        res.json(oneCategory)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: err})
+    }
+    
+}
