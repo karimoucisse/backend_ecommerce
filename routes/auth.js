@@ -12,4 +12,7 @@ app.post('/login', passport.authenticate("local"), authCtrl.loginUser)
 // route qui permet de récupérer l'utilisateur connecter
 app.get("/me", authCtrl.userConnected)
 
+// route qui permet de logout
+app.delete('/logout' , authCtrl.userLogout)
+
 module.exports = app

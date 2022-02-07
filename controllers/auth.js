@@ -60,3 +60,8 @@ exports.userConnected =  async (req, res) => {
         res.status(401).json({ error: "Unauthorized"})
     }
 }
+exports.userLogout = async (req, res) => {
+    req.session.destroy()
+    req.logout() 
+    res.status(200).json({ success: "Sucess" })
+}
