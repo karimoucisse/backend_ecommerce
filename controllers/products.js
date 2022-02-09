@@ -11,16 +11,12 @@ exports.getProducts =  async (req, res) => {
             name : {$regex : filter, $options: "i"}
         }
     }
-
     if (categories) {
         findParams = {
             ...findParams,
             categories : { $in : categories.split(",") }
         }
     }
-
-   
-
     // if (category) {categories : {$regex}}
     try {
             const products = await Products.find(findParams)

@@ -5,7 +5,7 @@ const LineItemSchema = Schema({
     quantity : { type : Number , required : true },
     weight : { type : Number , required : true },
     totalPrice : { type : Number},
-    cart : { type : Schema.Types.ObjectId, ref : "Cart", default: null},
+    cart : { type : Schema.Types.ObjectId, ref : "Cart"},
     order : { type : Schema.Types.ObjectId, ref : "Order"},
 },{
     timestamps : true
