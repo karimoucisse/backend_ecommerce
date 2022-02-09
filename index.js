@@ -31,7 +31,7 @@ const ordersRoutes = require("./routes/orders")
 const invoicesRoutes = require("./routes/invoices")
 const paymentMethodsRoutes = require("./routes/paymentMethods")
 const usersRoutes = require("./routes/users")
-
+const stripeRoute = require("./routes/stripe")
 app.use(express.json())
 app.use(cors({
   origin: process.env.ALLOWED_DOMAIN,
@@ -57,7 +57,7 @@ app.use('/orders', ordersRoutes)
 app.use('/invoices', invoicesRoutes)
 app.use('/paymentMethods', paymentMethodsRoutes)
 app.use('/users', usersRoutes)
-
+app.use('/create-checkout-session', stripeRoute)
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 }) 
