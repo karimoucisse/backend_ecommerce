@@ -11,6 +11,13 @@ const LineItemSchema = Schema({
     timestamps : true
 })
 
+LineItemSchema.post('save', async function(lineItem){
+    await model('Cart').findOneAndUpdate(
+        {_id: lineItem.cart },
+        {$push: {lineItems : lineItem._id}}
+    )
+})
+
 const LineItem = model('LineItem', LineItemSchema)
 
 module.exports = LineItem

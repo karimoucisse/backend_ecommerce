@@ -19,7 +19,7 @@ CartSchema.post('save', async function(cart){
         {cart: cart._id}
     )
     await model('LineItem').findOneAndUpdate(
-        {_id : cart.lineItems},
+        {_id: {$in: cart.lineItems}},
         {cart: cart._id}
     )
 })
