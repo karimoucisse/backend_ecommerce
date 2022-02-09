@@ -40,6 +40,8 @@ exports.getOneCart = async (req, res) => {
 
 //  function qui crée un panier en base de donnée
 exports.createCart = async (req, res) => {
+    
+    
     const cart = await new Cart ({
         ...req.body
     })
