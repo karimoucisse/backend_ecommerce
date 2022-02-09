@@ -11,11 +11,19 @@ const UserSchema = Schema({
     phoneNumber : { type : String },
     adress : { type : String, required : true}, 
     orders : [{ type : Schema.Types.ObjectId, ref : "Order" }],
-    cart : { type : Schema.Types.ObjectId, ref : "Cart", default: null }, 
+    cart : { type : Schema.Types.ObjectId, ref : "Cart"}, 
     paymentMethods : [{ type : Schema.Types.ObjectId, ref : "PaymentMethod"}],
 }, {
     timestamps : true
 })
+
+
+// UserSchema.post('save', async function(user){
+//     await model('Cart').findOneAndUpdate(
+//         {_id : user.cart},
+//         {user: user._id}
+//     )
+// })
 
 const User = model('User', UserSchema)
 

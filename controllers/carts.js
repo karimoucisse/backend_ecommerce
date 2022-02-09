@@ -27,7 +27,7 @@ exports.getOneCart = async (req, res) => {
             select: 'product quantity totalPrice weight',
             populate : {
                 path: 'product',
-                select: 'kiloPrice pricePerPiece netWeight conditioning fishingArea'
+                select: 'name image kiloPrice pricePerPiece netWeight conditioning fishingArea'
             }
         })
         .exec()
@@ -58,5 +58,19 @@ exports.deleteCart = async (req, res) => {
         res.json({ success: "Cart deleted"})
     } catch (err) {
         res.status(204).json({ error: err })
+    }
+}
+exports.modifyCart = async (req, res) => {
+    const {id} = req.params
+    try {
+        const cart =  await Cart.findOneAndUpdate(
+            {_id : id},
+            {...req.body},
+            {new: true}
+        )
+        res.json(cart)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: err})
     }
 }

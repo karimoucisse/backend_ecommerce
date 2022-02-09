@@ -11,4 +11,6 @@ app.post("/", cartCtrl.createCart)
 
 app.delete("/", cartCtrl.deleteCart)
 
+app.put("/:id", cartCtrl.modifyCart)
+
 module.exports = app
