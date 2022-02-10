@@ -22,7 +22,14 @@ exports.getUsers =  async (req, res, next) => {
 exports.getOneUser =  async (req, res, next) =>{
     const {id} = req.params
     try {
-        const user = await Users.findById(id).exec()
+        const user = await Users.findById(id)
+            .populate({
+                path: 'orders',
+                populate: {
+                    path: 'lineItems'
+                }
+            })
+            .exec()
         res.json(user)
     } catch (err) {
         console.log(err)

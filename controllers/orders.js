@@ -2,7 +2,7 @@ const Order = require("../models/Order")
 
 exports.createOrder = async(req, res) => {
     const order = await new Order ({
-        deliveryDate: req.body.deliveryDate,
+        deliveryDate: new Date(req.body.deliveryDate),
         user: req.body.user,
         lineItems: req.body.lineItems
     })

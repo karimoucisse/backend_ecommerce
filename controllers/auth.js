@@ -55,7 +55,19 @@ exports.loginUser =  (req, res) => {
 exports.userConnected =  async (req, res) => {
     // console.log(req.user)
     if (req.user) {
-        res.json(req.user)
+        try {
+            const user = await User.findById(req.user._id)
+            .populate({
+                path: 'orders',
+                populate: {
+                    path: 'lineItems'
+                }
+            })
+            
+            res.json(user)
+        } catch(err) {
+            console.log(err)
+        }
     } else {
         res.status(401).json({ error: "Unauthorized"})
     }
